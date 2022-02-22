@@ -3,10 +3,12 @@ import { Link, useHistory } from 'react-router-dom'
 import { Button } from '../components/Button';
 // import { useAuth } from '../hooks/useAuth';
 import logoImg from '../assets/images/logo.png';
+import urlImg from '../assets/images/redtheband.jpg';
 import { FaAngleDown, FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 import '../styles/home.scss';
 import { useState } from 'react';
+import { SlideCard } from '../components/SlideCard';
 
 export function Home() {
   const history = useHistory();
@@ -75,9 +77,15 @@ export function Home() {
       
 
       <div id="teste">
-      <p>Home</p>
-        <Button onClick={navigateToMusic}>Music</Button>
-        
+        <SlideCard 
+          title="My List"
+          name="Red"
+          urlImage={urlImg}/>
+
+        <SlideCard 
+          title="Rock"
+          name="Red"
+          urlImage={urlImg}/>
       </div>
       
      
