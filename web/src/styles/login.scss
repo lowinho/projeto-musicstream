@@ -1,0 +1,89 @@
+#page-login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-image: url('../assets/images/background-login.jpg');
+    
+    .content-card {
+        background-image: url('../assets/images/card-background.jpg');
+        background-size: auto;
+        width: 350px;
+        height: 480px;
+        padding: 40px 50px;
+        border-radius: 5px;
+        opacity: 0.8;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        #logo {
+            width: 100%;
+            height: 50px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #000000;
+            margin-bottom: 20px;
+        }
+
+        h5 {
+            color: #000000;
+            margin-top: 20px;
+        }
+
+        input {
+            width: 100%;
+            height: 45px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            padding: 15px;
+            color: #2757dd;
+            border-color: #2757dd;
+            background-color: #FFF;
+
+            &:hover {
+                filter: brightness(0.9);
+                border: 1px solid rgba(#2757dd, .05);
+                box-shadow: 1px 1px 2px rgba(#2757dd, .2);
+                text-decoration: none;
+                transition: all 250ms linear;
+            }
+        }
+    }
+
+    .login-google {
+        margin-top: 45px;
+        width: 100%;
+        height: 50px;
+        border-radius: 8px;
+        font-weight: 500;
+        background: #ea4335;
+        color: #FFF;
+    
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    
+        cursor: pointer;
+        border: 0;
+    
+        transition: filter 0.2s;
+    
+        img {
+          margin-right: 8px;
+        }
+    
+        &:hover {
+            filter: brightness(0.9);
+            border: 1px solid rgba(#000, .05);
+            box-shadow: 1px 1px 2px rgba(#fff, .2);
+            text-decoration: none;
+            transition: all 250ms linear;
+        }
+      }
+}
