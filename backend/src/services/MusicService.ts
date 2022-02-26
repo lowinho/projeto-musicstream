@@ -40,37 +40,31 @@ class MusicService {
         return music;
     }
 
-    async store({ 
-        authorId,
-        album,
-        genreId,
-        description,
-        link,
-        like 
-    } : IMusicCreate) {
-        const schema = Yup.object().shape({
-            authorId: Yup.number().required(),
-            album: Yup.string().required(),
-            genreId: Yup.string().required(),
-            description: Yup.string().required().max(1024),
-            link: Yup.string().required(),
-            like: Yup.boolean().required(),
-        });
+    async store(params : IMusicCreate) {
+    
+        // const schema = Yup.object().shape({
+        //     authorId: Yup.number().required(),
+        //     album: Yup.string().required(),
+        //     genreId: Yup.number().required(),
+        //     description: Yup.string().required().max(1024),
+        //     link: Yup.string().required(),
+        //     like: Yup.boolean(),
+        // });
 
-        if (!(await schema.isValid({
-            authorId,
-            album,
-            genreId,
-            description,
-            link,
-            like 
-        }))) {
-            throw new CustomError({
-              code: 'VALIDATION_FAILS',
-              message: 'Validation fails',
-              status: 400,
-            });
-        }
+        // if (!(await schema.isValid(params))) {
+        //     throw new CustomError({
+        //       code: 'VALIDATION_FAILS',
+        //       message: 'Validation fails',
+        //       status: 400,
+        //     });
+        // }
+
+        const authorId = params.authorId;
+        const album = params.album;
+        const genreId = params.genreId;
+        const description = params.description;
+        const link = params.link;
+        const like = params.like;
 
         const music = await prisma.music.create({
             data: {

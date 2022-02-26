@@ -6,9 +6,10 @@ import { Genre } from '../pages/Genre';
 
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
-import { Music } from '../pages/Music';
+import { PlayMusic } from '../pages/PlayMusic';
 import { MyList } from '../pages/MyList';
 import { User } from '../pages/User';
+import { Music } from '../pages/Music';
 
 export function Routes() {
   return (
@@ -18,6 +19,7 @@ export function Routes() {
         <Route path="/home" component={Home} />
         <Route path="/account" component={Account} />
         <Route path="/mylist" component={MyList} />
+        <Route path="/play-music" component={PlayMusic} />
         <Route path="/music" component={Music} />
         <Route path="/genre" component={Genre} />
         <Route path="/author" component={Author} />

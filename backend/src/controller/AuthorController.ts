@@ -29,20 +29,24 @@ class AuthorController {
     }
 
     async store(req: Request, res: Response) {
-            const { name } = req.body;
-            const authorService = new AuthorService();
-            try {
-                const author = await authorService.store({ name });
-                return res.json(author)
-            } catch (err) {
-                return res.status(400).json({
-                    message: err.message,
-                })
-            }
+        const { name } = req.body.params;
+        const authorService = new AuthorService();
+        try {
+
+            
+            const author = await authorService.store({ name });
+            console.log(author)
+            return res.json(author)
+        } catch (err) {
+            return res.status(400).json({
+                message: err.message,
+            })
+        }
     }
 
     async update(req: Request, res: Response) {
         const { id } = req.params;
+        console.log('name', id);
         const data = req.body;
         const authorService = new AuthorService();
         try {

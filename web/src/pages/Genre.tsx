@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 
 import { Button } from '../components/Button';
+import { toast } from 'react-toastify';
+import axios from '../services/axios';
 // import { useAuth } from '../hooks/useAuth';
 import { IconBack } from '../components/iconBack';
 
@@ -10,7 +12,8 @@ import '../styles/store.scss';
 export function Genre() {
   const history = useHistory();
   // const { user, signInWithGoogle } = useAuth();
-  const [nome, setNome] = useState('');
+  const [id, setId] = useState(null);
+  const [name, setName] = useState('');
 
   // async function handleCreateRoom() {
   //   if (!user) {
@@ -19,6 +22,36 @@ export function Genre() {
 
   //   history.push('/rooms/new');
   // }
+
+  function formValidation() {
+    if (name.length < 3) {toast.error('Digite um nome válido'); return}
+  }
+
+  async function onSubmit() {
+
+    formValidation();
+
+    let params = {
+      id: id,
+      name: name,
+    }
+
+    try {
+      if (id) {
+        await axios.put(`/genre/${id}`, {params});
+        toast.success("Registro atualizado com sucesso!");
+        // history.push('/account');
+      } else {
+        await axios.post(`/genre`, {params});
+        toast.success("Registro cadastrado com sucesso!");
+        // history.push('/account');
+      }
+    } catch(e) {
+        toast.error('Erro ao cadastrar registro, tente novamente mais tarde');
+        console.log('error', e)
+        // history.push('/account');
+    }
+  }
 
   function goBackNavigate() {
     history.goBack();
@@ -36,10 +69,10 @@ export function Genre() {
               type="text"
               id="input"
               placeholder="Digite o nome do Autor..."
-              onChange={event => setNome(event.target.value)}
-              value={nome}
+              onChange={event => setName(event.target.value)}
+              value={name}
             />
-          <Button>Cadastrar</Button>
+          <Button type="submit" onClick={onSubmit}>Cadastrar</Button>
         </div>
     </div>
   </div>

@@ -29,15 +29,17 @@ class MusicController {
     }
 
     async store(req: Request, res: Response) {
-            const { 
+            let { 
                 authorId,
                 album,
                 genreId,
                 description,
                 link,
                 like
-             } = req.body;
+             } = req.body.params;
             const musicService = new MusicService();
+            genreId = parseInt(genreId);
+            authorId = parseInt(authorId);
             try {
                 const music = await musicService.store({ 
                     authorId,

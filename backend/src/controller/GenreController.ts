@@ -29,16 +29,16 @@ class GenreController {
     }
 
     async store(req: Request, res: Response) {
-            const { name } = req.body;
-            const genreService = new GenreService();
-            try {
-                const genre = await genreService.store({ name });
-                return res.json(genre)
-            } catch (err) {
-                return res.status(400).json({
-                    message: err.message,
-                })
-            }
+        const { name } = req.body.params;
+        const genreService = new GenreService();
+        try {
+            const genre = await genreService.store({ name });
+            return res.json(genre)
+        } catch (err) {
+            return res.status(400).json({
+                message: err.message,
+            })
+        }
     }
 
     async update(req: Request, res: Response) {

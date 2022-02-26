@@ -1,0 +1,176 @@
+.page-store {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../assets/images/background-store2.jpg');
+    
+    .content-card {
+        background-image: url('../assets/images/card-background.jpg');
+        background-size: auto;
+        width: 550px;
+        height: 800px;
+        padding: 10px 40px;
+        border-radius: 5px;
+        opacity: 0.9;
+        display: grid;
+        grid-template-areas:    "one"
+                                "two"
+                                "three"
+                                "four"
+                                "five";
+
+        // #firstRow{
+        //     grid-area: one;
+        // }
+
+        #firstRow{
+            grid-area: one;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            
+        }
+
+        #secondRow{
+            grid-area: two;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 25px;
+        }
+
+        #thirdRow{
+            grid-area: three;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #fourthRow{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            grid-area: four;
+            
+            #input-row{
+                margin-bottom: 30px;
+            }
+        }
+
+        #fifthRow{
+          
+            grid-area: five;
+        }
+
+
+        img{
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+
+        .photo{
+            display: flex;
+            justify-content: center;
+            align-items: center; 
+        }
+
+        #picture, #picture-loaded{
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: #000000;
+            align-items: center;
+            justify-content: center;
+            opacity: 1 !important;
+            display: flex;
+
+            #icon-photo{
+                align-items: center;
+                opacity: 0.9;
+            }
+        }
+
+        input[type="file"]{
+            display: none;
+        }
+
+        h2 {
+            color: #000000;
+            margin-bottom: 45px;
+            
+        }
+
+        h5 {
+            color: #000000;
+            margin-top: 10px;
+            text-align: center;
+
+            a {
+                color: #2757dd;
+                cursor: pointer;
+            }
+        }
+
+        #label {
+            color: #000000;
+            font-size: medium;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input, select  {
+            width: 100%;
+            height: 45px;
+            border-radius: 5px;
+            padding: 15px;
+            color: #2757dd;
+            border-color: #2757dd;
+            background-color: #FFF;
+
+            &:hover {
+                filter: brightness(0.9);
+                border: 1px solid rgba(#2757dd, .05);
+                box-shadow: 1px 1px 2px rgba(#2757dd, .2);
+                text-decoration: none;
+                transition: all 250ms linear;
+            }
+        }
+
+        textarea {
+            width: 100%;
+            height: 135px;
+            border-radius: 5px;
+            padding: 15px;
+            color: #2757dd;
+            border-color: #2757dd;
+            background-color: #FFF;
+
+            &:hover {
+                filter: brightness(0.9);
+                border: 1px solid rgba(#2757dd, .05);
+                box-shadow: 1px 1px 2px rgba(#2757dd, .2);
+                text-decoration: none;
+                transition: all 250ms linear;
+            }
+        }
+
+        #label-select {
+            color: #000000;
+            font-size: medium;
+            font-weight: bold;
+            text-align: left;
+            width: 216px;
+        }
+
+        #label-textarea {
+            color: #000000;
+            font-size: medium;
+            font-weight: bold;
+            text-align: left;
+            width: 480px;
+        }
+    }
+}

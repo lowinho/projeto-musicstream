@@ -44,6 +44,7 @@ model Music {
   myListUser  MyListUser[]
   genre       Genre        @relation(fields: [genreId], references: [id])
   author      Author       @relation(fields: [authorId], references: [id])
+  Cover       Cover[]
 }
 
 model Avatar {
@@ -55,6 +56,17 @@ model Avatar {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @default(now())
   user         User     @relation(fields: [userId], references: [id])
+}
+
+model Cover {
+  id           Int      @id @default(autoincrement())
+  musicId      Int
+  originalName String
+  fileName     String
+  url          String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @default(now())
+  music        Music    @relation(fields: [musicId], references: [id])
 }
 
 model Genre {

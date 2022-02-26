@@ -1,5 +1,5 @@
 {
-  "name": "semana_nlw",
+  "name": "musicstream",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,11 +12,14 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^3.8.0",
+    "@types/cors": "^2.8.12",
     "@types/multer": "^1.4.7",
     "@types/yup": "^0.29.13",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-handler-errors": "^2.3.1",
+    "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
     "multer": "^1.4.4",
     "reflect-metadata": "^0.1.13",

@@ -5,6 +5,7 @@ import { genreRoutes } from "./routes/genreRoutes";
 import { musicRoutes } from "./routes/musicRoutes";
 import { mylistRoutes } from "./routes/myListRoutes";
 import { avatarRoutes } from "./routes/avatarRoutes";
+import { coverAlbumRoutes } from "./routes/coverAlbumRoutes";
 
 import { userRoutes } from "./routes/userRoutes";
 
@@ -17,6 +18,7 @@ routes.use('/login', loginRoutes);
 routes.use('/author', authorRoutes);
 routes.use('/genre', genreRoutes);
 routes.use('/avatar', avatarRoutes);
+routes.use('/cover', coverAlbumRoutes);
 routes.use('/user', userRoutes);
 routes.use('/mylist', mylistRoutes);
 routes.use('/music', musicRoutes);

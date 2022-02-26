@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { UserModel } from '../models/userModel';
 
 import { Button } from '../components/Button';
 // import { useAuth } from '../hooks/useAuth';
 
 import '../styles/user.scss';
 import { IconBack } from '../components/iconBack';
+import axios from '../services/axios';
 
 export function User() {
   const history = useHistory();
@@ -14,6 +16,7 @@ export function User() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [admin, setAdmin] = useState(false);
 
   // async function handleCreateRoom() {
   //   if (!user) {
@@ -22,6 +25,49 @@ export function User() {
 
   //   history.push('/rooms/new');
   // }
+
+  // function validateEmail(email: string) {
+  //   if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)){
+  //     return true
+  //   } 
+  //     return false
+  // }
+
+  function validateEmail() {
+  var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  const validation = email.match(validRegex) ? true :  false;
+  return validation
+}
+
+
+  function formValidation() {
+    let valida = true;
+    if (!validateEmail()) {toast.error('Email incorreto'); valida = false};
+    if (password.length < 6) {toast.error('A senha precisa ter pelo menos 6 caracteres'); valida = false};
+    if (password !== confirm) {toast.error('A confirmação de senha digitada está incorreta'); valida = false}
+
+    return valida
+  }
+
+  async function onSubmit() {
+    if (!formValidation()) return
+    let params: UserModel = {
+      email: email,
+      password: password,
+      admin: admin
+    }
+
+    try {
+        await axios.post(`/user`, {params});
+        toast.success("Registro cadastrado com sucesso!");
+        // history.push('/home');
+    } catch(e) {
+        toast.error('Erro ao cadastrar registro, tente novamente mais tarde');
+        console.log('error', e)
+        // history.push('/account');
+    }
+  }
 
   function goBackNavigate() {
     history.goBack();
@@ -64,7 +110,7 @@ export function User() {
               onChange={event => setConfirm(event.target.value)}
               value={confirm}
             />
-            <Button>Cadastrar</Button>
+            <Button type="submit" onClick={onSubmit}>Cadastrar</Button>
           </div>
         <div className="empty-card"></div>
       </div>

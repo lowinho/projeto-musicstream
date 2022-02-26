@@ -1,18 +1,19 @@
 import { Link, useHistory } from 'react-router-dom'
 
-import { Button } from '../components/Button';
 // import { useAuth } from '../hooks/useAuth';
 import logoImg from '../assets/images/logo.png';
 import urlImg from '../assets/images/redtheband.jpg';
 import { FaAngleDown, FaUser, FaSignOutAlt } from 'react-icons/fa';
 
 import '../styles/home.scss';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SlideCard } from '../components/SlideCard';
+import axios from '../services/axios';
 
 export function Home() {
   const history = useHistory();
-  const [photo, setPhoto] = useState('');
+  // const [photo, setPhoto] = useState([]);
+  // const [music, setMusic] = useState([] as any);
   const [showDropdown, setShowDropdown] = useState(false);
   // const { user, signInWithGoogle } = useAuth()
 
@@ -24,8 +25,32 @@ export function Home() {
   //   history.push('/rooms/new');
   // }
 
+  // useEffect(() => {
+  //   async function getMusic() {
+  //     try {
+  //       const { data } = await axios.get('/music');
+  //       setMusic(data);
+  //     } catch(e) {
+  //       console.log(e)
+  //     }
+  //   }
+
+  //   async function getCoverAlbum() {
+  //     try {
+  //       const { data } = await axios.get('/cover');
+  //       music.unshift({
+  //         photo: data
+  //       });
+  //       setPhoto(data);
+  //     } catch(e) {
+  //       console.log(e)
+  //     } 
+  //   }
+  //   getMusic();
+  //   getCoverAlbum();
+  // }, [])
+
   function handleShowDropdown() {
-    console.log('aqui')
     if (showDropdown) {
       setShowDropdown(false);
     } else {
@@ -38,7 +63,7 @@ export function Home() {
   }
 
   function navigateToMusic() {
-    history.push('/music');
+    history.push('/play-music');
   }
 
   function navigateToAccount() {
@@ -76,19 +101,27 @@ export function Home() {
       </nav>
       
 
-      <div id="teste">
-        <SlideCard 
-          title="My List"
-          name="Red"
-          urlImage={urlImg}/>
+      <div className="container">
+        <div id="title-lists">My List</div>
+          <SlideCard 
+            name="Red"
+            urlImage={urlImg}/>
 
-        <SlideCard 
-          title="Rock"
-          name="Red"
-          urlImage={urlImg}/>
-      </div>
-      
-     
+          <div id="title-lists">Rock</div>
+          <SlideCard 
+            name="Red"
+            urlImage={urlImg}/>
+
+          <div id="title-lists">Sertanejo</div>
+          <SlideCard 
+            name="Red"
+            urlImage={urlImg}/>
+
+          <div id="title-lists">Pop</div>
+          <SlideCard 
+            name="Red"
+            urlImage={urlImg}/>
+        </div>
     </div>
   )
 }

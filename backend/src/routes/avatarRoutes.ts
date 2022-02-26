@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { AvatarController } from "../controller/AvatarController";
 import multer from "multer";
-import multerConfig from "../config/multerConfig";
+import multerConfig from "../config/avatarMulterConfig";
 
 const upload = multer(multerConfig).single("file");
 

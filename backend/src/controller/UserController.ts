@@ -47,7 +47,7 @@ class UserController {
                 email,
                 password,
                 admin
-             } = req.body;
+             } = req.body.params;
             const userService = new UserService();
             try {
                 const settings = await userService.store(

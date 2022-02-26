@@ -1,10 +1,15 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
+import axios from "../services/axios";
 import { auth, firebase } from "../services/firebase";
 
 type User = {
   id: string;
-  name: string;
-  avatar: string;
+  name?: string;
+  email?: string;
+  admin?: boolean;
+  created?: string;
+  updated?: string;
+  avatar?: string;
 }
 
 type AuthContextType = {
@@ -22,25 +27,36 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        const { displayName, photoURL, uid } = user
-
-        if (!displayName || !photoURL) {
-          throw new Error('Missing information from Google Account.');
-        }
-
-        setUser({
-          id: uid,
-          name: displayName,
-          avatar: photoURL
-        })
-      }
-    })
-
-    return () => {
-      unsubscribe();
+    async function getUser() {
+      try {
+        const { data } = await axios.get('/user');
+        setUser(data);
+        console.log(data)
+      } catch(e) {
+        console.log(e)
+      } 
     }
+    getUser();
+    // const unsubscribe = auth.onAuthStateChanged(user => {
+      
+    //   if (user) {
+    //     const { displayName, photoURL, uid } = user
+
+    //     if (!displayName || !photoURL) {
+    //       throw new Error('Missing information from Google Account.');
+    //     }
+
+    //     setUser({
+    //       id: uid,
+    //       name: displayName,
+    //       avatar: photoURL
+    //     })
+    //   }
+    // })
+
+    // return () => {
+    //   unsubscribe();
+    // }
   }, [])
 
   async function signInWithGoogle() {

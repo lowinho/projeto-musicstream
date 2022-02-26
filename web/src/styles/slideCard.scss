@@ -1,7 +1,7 @@
 .slide-card{
   margin-top: 15px;
   height: 250px;
-  background-color: rgb(0, 0, 0);
+  background-color: #000000;
   display: flex;
   align-items: center;
   opacity: 0.9;
@@ -21,6 +21,7 @@
 
   .slide-card:hover .card-inside {
     transform: translateX(-25%);
+
  }
 
   .card-inside{
@@ -29,16 +30,15 @@
                           "two"
                           "three";
 
-
-
     &:hover {
       transform: scale(1.5) !important;
+      z-index: 1;
+      cursor: pointer;
     }
     
     #title{
       color: #ffffff;
       font-size: 20px;
-      margin-bottom: 15px;
       display: grid;
       justify-content: center;
       grid-area: one;
@@ -47,10 +47,11 @@
     img{
       display: grid;
       justify-content: center;
-      width: 170px;
-      height: 150px;
-      margin: 15px 60px 0 60px;
+      width: 250px;
+      height: 180px;
+      margin: 0 60px 0 60px;
       grid-area: two;
+      border-radius: 7px;
     }
   
     #name{
@@ -61,5 +62,23 @@
     }
   }
 
- 
+  .HorizontalScrollContainer_defaultLeftArrow {
+    border: solid #ffffff;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(135deg);
+    width: 20px;
+    height: 20px;
+  }
+
+  .HorizontalScrollContainer_defaultRightArrow {
+      border: solid #ffffff;
+      border-width: 0 3px 3px 0;
+      display: inline-block;
+      padding: 3px;
+      transform: rotate(-45deg);
+      width: 20px;
+      height: 20px;
+  }
 }
