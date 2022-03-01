@@ -9,12 +9,16 @@ import '../styles/home.scss';
 import { useEffect, useState } from 'react';
 import { SlideCard } from '../components/SlideCard';
 import axios from '../services/axios';
+import PropTypes from 'prop-types';
+import { Loading } from '../components/Loading'
 
 export function Home() {
   const history = useHistory();
   // const [photo, setPhoto] = useState([]);
   // const [music, setMusic] = useState([] as any);
+  const [genre, setGenre] = useState([] as any);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [ isLoading, setIsLoading ] = useState(true);
   // const { user, signInWithGoogle } = useAuth()
 
   // async function handleCreateRoom() {
@@ -25,30 +29,19 @@ export function Home() {
   //   history.push('/rooms/new');
   // }
 
-  // useEffect(() => {
-  //   async function getMusic() {
-  //     try {
-  //       const { data } = await axios.get('/music');
-  //       setMusic(data);
-  //     } catch(e) {
-  //       console.log(e)
-  //     }
-  //   }
-
-  //   async function getCoverAlbum() {
-  //     try {
-  //       const { data } = await axios.get('/cover');
-  //       music.unshift({
-  //         photo: data
-  //       });
-  //       setPhoto(data);
-  //     } catch(e) {
-  //       console.log(e)
-  //     } 
-  //   }
-  //   getMusic();
-  //   getCoverAlbum();
-  // }, [])
+  useEffect(() => {
+    async function getMusic() {
+      try {
+        const data = await axios.get('/genre');
+        setGenre(data.data);
+        console.log('genre', data.data);
+      } catch(e) {
+        console.log(e)
+      }
+    }
+    getMusic();
+    setIsLoading(false);
+  }, [])
 
   function handleShowDropdown() {
     if (showDropdown) {
@@ -62,17 +55,19 @@ export function Home() {
     alert('LOGOUT');
   }
 
-  function navigateToMusic() {
-    history.push('/play-music');
-  }
+  // function navigateToMusic() {
+  //   history.push('/play-music');
+  // }
 
   function navigateToAccount() {
     history.push('/account');
   }
 
   return (
-    <div>
-      <nav>
+    <>
+      {isLoading ? <Loading /> : 
+      <>
+        <nav>
         <div className="nav-left">
           <img id="logo" src={logoImg} alt="musicstream" />
           <Link to="/home">Home</Link>
@@ -99,20 +94,22 @@ export function Home() {
           </div>
         </div>
       </nav>
-      
-
       <div className="container">
-        <div id="title-lists">My List</div>
+        {/* <div id="title-lists">My List</div>
           <SlideCard 
             name="Red"
-            urlImage={urlImg}/>
+            urlImage={urlImg}/> */}
 
-          <div id="title-lists">Rock</div>
-          <SlideCard 
-            name="Red"
-            urlImage={urlImg}/>
-
-          <div id="title-lists">Sertanejo</div>
+          {genre.map((value: any) => (
+            <>
+              <div key={value.id} id="title-lists">{value.name}</div>
+              <SlideCard 
+                data={value.music}
+                urlImage={urlImg}/>
+            </>
+          ))}
+         
+          {/* <div id="title-lists">Pop</div>
           <SlideCard 
             name="Red"
             urlImage={urlImg}/>
@@ -120,8 +117,13 @@ export function Home() {
           <div id="title-lists">Pop</div>
           <SlideCard 
             name="Red"
-            urlImage={urlImg}/>
+            urlImage={urlImg}/> */}
         </div>
-    </div>
+      </>}
+    </>
   )
 }
+
+Home.propTypes = {
+  match: PropTypes.shape({}).isRequired,
+};

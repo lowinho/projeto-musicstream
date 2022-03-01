@@ -20,7 +20,11 @@ class GenreService {
     }
 
     async show() {
-        const genre = prisma.genre.findMany();
+        const genre = prisma.genre.findMany({
+            include: {
+                music: true
+            }
+        });
         return genre;
     }
 

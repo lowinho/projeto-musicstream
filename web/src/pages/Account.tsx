@@ -4,8 +4,8 @@ import { Link, useHistory } from 'react-router-dom'
 import { Button } from '../components/Button';
 // import { useAuth } from '../hooks/useAuth';
 import { IconBack } from '../components/iconBack';
-import { FaPlus, FaEdit } from 'react-icons/fa';
-
+import { FaPlus } from 'react-icons/fa';
+// FaEdit
 import '../styles/account.scss';
 
 export function Account() {

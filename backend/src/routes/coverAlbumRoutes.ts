@@ -11,6 +11,7 @@ const coverAlbumController = new CoverAlbumController();
 coverAlbumRoutes.get("/:id", coverAlbumController.index);
 // coverAlbumRoutes.get("/", coverAlbumController.show);
 coverAlbumRoutes.post("/:id", upload, coverAlbumController.store);
+coverAlbumRoutes.get("/music/:id", coverAlbumController.getByMusic);
 // coverAlbumRoutes.put("/:id", coverAlbumController.update);
 
 export { coverAlbumRoutes };

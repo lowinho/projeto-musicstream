@@ -29,7 +29,8 @@ class MusicController {
     }
 
     async store(req: Request, res: Response) {
-            let { 
+            let {
+                name,
                 authorId,
                 album,
                 genreId,
@@ -42,6 +43,7 @@ class MusicController {
             authorId = parseInt(authorId);
             try {
                 const music = await musicService.store({ 
+                    name,
                     authorId,
                     album,
                     genreId,
@@ -73,24 +75,18 @@ class MusicController {
         }
     }
 
-    // async uploadFile(req: any, res: Response): Promise<Response> {
-
-    //     const params = req.file;
-    
-    //     const anuncianteAnunciante = new AnuncianteAnuncianteService();
-    
-    //     try { 
-    //       const file = await anuncianteAnunciante.uploadFiles(params);
-    
-    //       return
-    
-    //       return res.json(file);
-    //     } catch (err) {
-    //       res.status(400).json({ 
-    //         message: err.message 
-    //       });
-    //     }
-    //   }
+    async getByGenre(req: Request, res: Response) {
+        const { id } = req.params;
+        const musicService = new MusicService();
+        try {
+            const music = await musicService.getByGenre(parseInt(id));
+            return res.json(music)
+        } catch (err) {
+            return res.status(400).json({
+                message: err.message,
+            })
+        }
+    }
 }
 
 export { MusicController };

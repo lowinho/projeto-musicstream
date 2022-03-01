@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import * as Yup from 'yup';
 import { CustomError } from 'express-handler-errors';
-import { hashSync, hash, genSaltSync } from 'bcryptjs';
+import appConfig from '../config/appConfig';
 
 const prisma = new PrismaClient()
 
@@ -43,7 +43,7 @@ class AvatarService {
       try {
           const fileName = params.filename;
           const originalName = params.originalname;
-          const url = params.destination;
+          const url = `${appConfig.url}/images/avatar/${params.filename}`;
           const userId = id;
 
           console.log(id)

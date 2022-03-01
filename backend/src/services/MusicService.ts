@@ -5,7 +5,8 @@ import { CustomError } from 'express-handler-errors';
 const prisma = new PrismaClient()
 
 interface IMusicCreate {
-    id?: number
+    id?: number;
+    name: string;
     authorId: number;
     authorName?: string;
     album: string;
@@ -59,6 +60,7 @@ class MusicService {
         //     });
         // }
 
+        const name = params.name;
         const authorId = params.authorId;
         const album = params.album;
         const genreId = params.genreId;
@@ -68,6 +70,7 @@ class MusicService {
 
         const music = await prisma.music.create({
             data: {
+                name,
                 authorId,
                 album,
                 genreId,
@@ -85,6 +88,7 @@ class MusicService {
                 id: id,
               },
               data: {
+                name: data.name,
                 authorId: data.authorId,
                 album: data.album,
                 genreId: data.genreId,
@@ -94,7 +98,20 @@ class MusicService {
               },
           })
           return music;
-    }  
+    }
+    
+    async getByGenre(id: number) {
+        const music = prisma.music.findMany({
+            where: {
+                genreId: id,
+              },
+            include: {
+                author: true,
+                genre: true
+            }
+        });
+        return music;
+    }
 }
 
 export { MusicService };

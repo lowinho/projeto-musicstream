@@ -1,22 +1,24 @@
 import { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { get } from 'lodash';
 
 import { Button } from '../components/Button';
 import { toast } from 'react-toastify';
 import axios from '../services/axios';
 // import { useAuth } from '../hooks/useAuth';
 import { IconBack } from '../components/iconBack';
-import { FaPlus, FaEdit } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa';
 import { MusicModel } from '../models/musicModel';
 import { StoreModel } from '../models/storeModel';
-
+// FaEdit 
 import '../styles/music.scss';
 
 
-export function Music() {
+export function Music({ match }: any) {
   const history = useHistory();
   // const { user, signInWithGoogle } = useAuth();
-  const [id, setId] = useState(null);
+  // const id = get(match, 'params.id', '');
+  const id = null;
   const [name, setName] = useState('');
   const [album, setAlbum] = useState('');
   const [genre, setGenre] = useState(0);
@@ -73,17 +75,6 @@ export function Music() {
     console.log(fileLoaded);
     const photoURL = URL.createObjectURL(fileLoaded);
     setPhoto(photoURL);
-    
-    // const formData = new FormData();
-    // formData.append('file', file);
-
-    // console.log('file', file);
-    // console.log('formaData', formData);
-    // await axios.post(`/cover/${1}`, formData, {
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   }});
-    // setFile(file);
   }
 
   function formValidation() {
@@ -99,6 +90,9 @@ export function Music() {
   async function onSubmit() {
 
     formValidation();
+
+    setLike(false); 
+    // tirar essa validação
 
     let params: MusicModel = {
       id: id,
@@ -118,7 +112,8 @@ export function Music() {
       console.log(file);
       console.log(formData);
 
-      if (id !== null) {
+      
+      if (id !== null ) {
         var idRetorno;
         await axios.put(`/music/${id}`, {params});
         await axios.put(`/cover/${id}`, {formData});

@@ -2,6 +2,7 @@ import { PrismaClient } from '@prisma/client';
 import * as Yup from 'yup';
 import { CustomError } from 'express-handler-errors';
 import { hashSync, hash, genSaltSync } from 'bcryptjs';
+import appConfig from '../config/appConfig';
 
 const prisma = new PrismaClient()
 
@@ -43,11 +44,9 @@ class CoverAlbumService {
       try {
           const fileName = params.filename;
           const originalName = params.originalname;
-          const url = params.destination;
+          const url = `${appConfig.url}/images/cover/${params.filename}`;
           const musicId = id;
 
-          console.log(id)
-          
           const cover = await prisma.cover.create({
             data: {
                 fileName,
@@ -81,6 +80,18 @@ class CoverAlbumService {
     //       })
     //       return cover;
     // }
+
+    async getByMusic(id: number) {
+      const music = prisma.cover.findMany({
+          where: {
+              musicId: id,
+            },
+          include: {
+              music: true
+          }
+      });
+      return music;
+  }
 }
 
 export { CoverAlbumService };

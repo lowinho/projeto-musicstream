@@ -33,6 +33,7 @@ model MyListUser {
 
 model Music {
   id          Int          @id @default(autoincrement())
+  name        String
   authorId    Int
   genreId     Int
   album       String

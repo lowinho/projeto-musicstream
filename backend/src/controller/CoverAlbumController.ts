@@ -57,6 +57,19 @@ class CoverAlbumController {
     //         })
     //     }
     // }
+
+    async getByMusic(req: Request, res: Response) {
+      const { id } = req.params;
+      const musicService = new CoverAlbumService();
+      try {
+          const music = await musicService.getByMusic(parseInt(id));
+          return res.json(music)
+      } catch (err) {
+          return res.status(400).json({
+              message: err.message,
+          })
+      }
+  }
 }
 
 export { CoverAlbumController };

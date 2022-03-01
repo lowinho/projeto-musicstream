@@ -51,6 +51,8 @@ export function User() {
   }
 
   async function onSubmit() {
+    setAdmin(false);
+    // verificar esse setter depois
     if (!formValidation()) return
     let params: UserModel = {
       email: email,

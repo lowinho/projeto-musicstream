@@ -4,15 +4,17 @@ import { useHistory } from 'react-router-dom'
 import { Button } from '../components/Button';
 import { toast } from 'react-toastify';
 import axios from '../services/axios';
+import { get } from 'lodash';
+import PropTypes from 'prop-types';
 // import { useAuth } from '../hooks/useAuth';
 import { IconBack } from '../components/iconBack';
 
 import '../styles/store.scss';
 
-export function Genre() {
+export function Genre({ match }: any) {
   const history = useHistory();
   // const { user, signInWithGoogle } = useAuth();
-  const [id, setId] = useState(null);
+  const id = get(match, 'params.id', '');
   const [name, setName] = useState('');
 
   // async function handleCreateRoom() {
@@ -78,3 +80,7 @@ export function Genre() {
   </div>
   )
 }
+
+Genre.propTypes = {
+  match: PropTypes.shape({}).isRequired,
+};

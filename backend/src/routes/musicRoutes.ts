@@ -10,5 +10,6 @@ musicRoutes.get("/:id", musicController.index);
 musicRoutes.get("/", musicController.show);
 musicRoutes.post("/", musicController.store);
 musicRoutes.put("/:id", musicController.update);
+musicRoutes.get("/genre/:id", musicController.getByGenre);
 
 export { musicRoutes };
