@@ -13,6 +13,7 @@ import axios from '../services/axios';
 export function User() {
   const history = useHistory();
   // const { user, signInWithGoogle } = useAuth();
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
@@ -34,15 +35,15 @@ export function User() {
   // }
 
   function validateEmail() {
-  var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-
-  const validation = email.match(validRegex) ? true :  false;
-  return validation
-}
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const validation = email.match(validRegex) ? true :  false;
+    return validation
+  }
 
 
   function formValidation() {
     let valida = true;
+    if (name.length < 6) {toast.error('O Nome precisa ter no mínimo 5 caracteres'); valida = false};
     if (!validateEmail()) {toast.error('Email incorreto'); valida = false};
     if (password.length < 6) {toast.error('A senha precisa ter pelo menos 6 caracteres'); valida = false};
     if (password !== confirm) {toast.error('A confirmação de senha digitada está incorreta'); valida = false}
@@ -54,14 +55,14 @@ export function User() {
     setAdmin(false);
     // verificar esse setter depois
     if (!formValidation()) return
-    let params: UserModel = {
-      email: email,
-      password: password,
-      admin: admin
-    }
 
     try {
-        await axios.post(`/user`, {params});
+        await axios.post(`/user`, {
+          name,
+          email,
+          password,
+          admin
+        } as UserModel);
         toast.success("Registro cadastrado com sucesso!");
         // history.push('/home');
     } catch(e) {
@@ -86,11 +87,19 @@ export function User() {
       <div id="page-user">
         <div className='content-card'>
           <h2>Novo Cadastro</h2>
+          <div id='label'>Nome</div>
+            <input 
+                type="text"
+                id="input"
+                placeholder="Digite seu nome..."
+                onChange={event => setName(event.target.value)}
+                value={name}
+              />
           <div id='label'>Email</div>
             <input 
                 type="text"
                 id="input"
-                placeholder="Digite um email..."
+                placeholder="Digite seu email..."
                 onChange={event => setEmail(event.target.value)}
                 value={email}
               />

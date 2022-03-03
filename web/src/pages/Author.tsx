@@ -34,18 +34,13 @@ export function Author({ match }: any) {
 
     formValidation();
 
-    let params = {
-      id: id,
-      name: name,
-    }
-
     try {
       if (id) {
-        await axios.put(`/author/${id}`, {params});
+        await axios.put(`/author/${id}`, {id, name});
         toast.success("Registro atualizado com sucesso!");
         // history.push('/account');
       } else {
-        await axios.post(`/author`, {params});
+        await axios.post(`/author`, {id, name});
         toast.success("Registro cadastrado com sucesso!");
         // history.push('/account');
       }

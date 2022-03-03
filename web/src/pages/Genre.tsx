@@ -33,18 +33,18 @@ export function Genre({ match }: any) {
 
     formValidation();
 
-    let params = {
-      id: id,
-      name: name,
-    }
+    // let params = {
+    //   id: id,
+    //   name: name,
+    // }
 
     try {
       if (id) {
-        await axios.put(`/genre/${id}`, {params});
+        await axios.put(`/genre/${id}`, {id, name});
         toast.success("Registro atualizado com sucesso!");
         // history.push('/account');
       } else {
-        await axios.post(`/genre`, {params});
+        await axios.post(`/genre`, {id, name});
         toast.success("Registro cadastrado com sucesso!");
         // history.push('/account');
       }

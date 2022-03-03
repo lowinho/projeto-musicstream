@@ -11,6 +11,7 @@ import { SlideCard } from '../components/SlideCard';
 import axios from '../services/axios';
 import PropTypes from 'prop-types';
 import { Loading } from '../components/Loading'
+import { useAuth } from '../hooks/useAuth';
 
 export function Home() {
   const history = useHistory();
@@ -19,22 +20,13 @@ export function Home() {
   const [genre, setGenre] = useState([] as any);
   const [showDropdown, setShowDropdown] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
-  // const { user, signInWithGoogle } = useAuth()
-
-  // async function handleCreateRoom() {
-  //   if (!user) {
-  //     await signInWithGoogle()
-  //   }
-
-  //   history.push('/rooms/new');
-  // }
+  const { user } = useAuth()
 
   useEffect(() => {
     async function getMusic() {
       try {
         const data = await axios.get('/genre');
         setGenre(data.data);
-        console.log('genre', data.data);
       } catch(e) {
         console.log(e)
       }
@@ -75,8 +67,12 @@ export function Home() {
         </div>
 
         <div className="nav-right">
+          <div id="title">{user?.name}</div>
           <div className="photo" onClick={handleShowDropdown}>
-            <div id="profile-photo"><FaAngleDown color="white" id="icon-profile" /></div>
+            <div id="profile-photo">
+              {user?.avatar ? <img src={user?.avatar} alt="Avatar" id="profile-avatar"/>: <div id="profile-no-photo">CL</div>}
+              <FaAngleDown color="#000000" id="icon-profile" />
+              </div>
             {showDropdown ? 
             <div className="dropdown">
               <div id="account-sign"onClick={navigateToAccount}>
@@ -101,12 +97,12 @@ export function Home() {
             urlImage={urlImg}/> */}
 
           {genre.map((value: any) => (
-            <>
+            <div key={value.id}>
               <div key={value.id} id="title-lists">{value.name}</div>
               <SlideCard 
                 data={value.music}
                 urlImage={urlImg}/>
-            </>
+            </div>
           ))}
          
           {/* <div id="title-lists">Pop</div>

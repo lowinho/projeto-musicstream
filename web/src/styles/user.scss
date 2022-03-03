@@ -1,3 +1,5 @@
+@import './color.scss';
+
 #back {
     margin-left: 30px;
     margin-top: 30px;
@@ -15,7 +17,7 @@
         background-image: url('../assets/images/card-background.jpg');
         background-size: auto;
         width: 350px;
-        height: 480px;
+        height: 550px;
         padding: 40px 50px;
         border-radius: 5px;
         opacity: 0.8;
@@ -23,17 +25,17 @@
         flex-direction: column;
         
         h2 {
-            color: #000000;
+            color: $color-primary-dark;
             margin-bottom: 45px;
         }
 
         h5 {
-            color: #000000;
+            color: $color-primary-dark;
             margin-top: 20px;
         }
 
         #label {
-            color: #000000;
+            color: $color-primary-dark;
             font-size: medium;
             font-weight: bold;
             text-align: left;
@@ -45,14 +47,14 @@
             margin-bottom: 15px;
             border-radius: 5px;
             padding: 15px;
-            color: #2757dd;
-            border-color: #2757dd;
-            background-color: #FFF;
+            color: $color-secondary-blue;
+            border-color: $color-secondary-blue;
+            background-color: $color-primary-light;
 
             &:hover {
                 filter: brightness(0.9);
-                border: 1px solid rgba(#2757dd, .05);
-                box-shadow: 1px 1px 2px rgba(#2757dd, .2);
+                border: 1px solid rgba($color-secondary-blue, .05);
+                box-shadow: 1px 1px 2px rgba($color-secondary-blue, .2);
                 text-decoration: none;
                 transition: all 250ms linear;
             }
@@ -66,7 +68,7 @@
         border-radius: 8px;
         font-weight: 500;
         background: #ea4335;
-        color: #FFF;
+        color: $color-primary-light;
     
         display: flex;
         justify-content: center;
@@ -83,8 +85,8 @@
     
         &:hover {
             filter: brightness(0.9);
-            border: 1px solid rgba(#000, .05);
-            box-shadow: 1px 1px 2px rgba(#fff, .2);
+            border: 1px solid rgba($color-primary-dark, .05);
+            box-shadow: 1px 1px 2px rgba($color-primary-light, .2);
             text-decoration: none;
             transition: all 250ms linear;
         }

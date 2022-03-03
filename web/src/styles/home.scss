@@ -1,8 +1,9 @@
+@import './color.scss';
+@import './variables.scss';
+
 nav {
+    @include flexContainer(flex, space-between, center);
     margin: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     background-image: url('../assets/images/card-background.jpg');
     height: 60px; 
     line-height: 90px; 
@@ -10,19 +11,17 @@ nav {
 
   
     .nav-left {
+        @include flexContainer(flex, none, center);
         margin-left: 60px;
-        display: flex;
-        align-items: center;
-
         a {
             margin-right: 15px;
-            color: #000000;
+            color: $color-primary-dark;
             text-decoration: none;
             text-align: center;
             font-weight: bold;
 
             &:hover{
-                color: #2757dd;
+                color: $color-secondary-blue;
                 transition: 400ms;
             }
         }
@@ -35,45 +34,75 @@ nav {
     }
 
     .nav-right {
-        display: flex;
+        @include flexContainer(flex, none, center);
         float: right;
         margin-right: 60px;
-        align-items: center;
+
+        #title {
+            color: $color-primary-dark;
+            text-align: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
 
         .photo{
             cursor: pointer;
+        }
+
+        #profile-avatar{
+            @include flexContainer(flex, flex-end, flex-end);
+            width: 50px;
+            height: 50px;
+            border-radius: 7px;
+            color: $color-primary-dark;
+            border: $color-primary-dark 2px solid;
+           
+        }
+
+        #profile-no-photo{
+            @include flexContainer(flex, center, center);
+            width: 50px;
+            height: 50px;
+            border-radius: 7px;
+            background-color: $color-primary-light;
+            font-size: large;
+            border: $color-primary-dark 2px solid;
+            color: $color-primary-dark;
+            font-weight: bold;
         }
 
         #profile-photo{
             width: 50px;
             height: 50px;
             border-radius: 7px;
-            background-color: #000000;
-            display: flex;
-            justify-content: flex-end;
-            align-items: flex-end;
-           
+            background-color: $color-primary-dark;
+
+            #icon-profile{
+                position: absolute;
+                right: 60px;
+                top: 40px;
+                color: $color-primary-dark;
+            }
         }
 
+       
+
         .dropdown{
+            @include flexContainer(flex, center, flex-start);
             width: 150px;
             height: 200px;
-            background-color: #ffffff;
-            color: #000000;
+            background-color: $color-primary-light;
+            color: $color-primary-dark;
             position: absolute;
             top: 65px;
             right: 59px;
             border-radius: 7px;
-            display: flex;
             flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
             z-index: 1;
             opacity: 0.8;
 
             #account-sign{
-                display: flex;
-                align-items: center;
+                @include flexContainer(flex, none, center);
                 cursor: pointer;
             }
 
@@ -101,6 +130,6 @@ nav {
     }
 
     p {
-        color: #ffffff;
+        color: $color-primary-light;
     }
 }

@@ -1,4 +1,5 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
+import { LoginModel } from "../models/loginModel";
 import axios from "../services/axios";
 import { auth, firebase } from "../services/firebase";
 
@@ -9,12 +10,13 @@ type User = {
   admin?: boolean;
   created?: string;
   updated?: string;
-  avatar?: string;
+  avatar?: string ;
 }
 
 type AuthContextType = {
   user: User | undefined;
   signInWithGoogle: () => Promise<void>;
+  signInWithEmail: (email: string, password: string) => Promise<void>;
 }
 
 type AuthContextProviderProps = {
@@ -26,44 +28,38 @@ export const AuthContext = createContext({} as AuthContextType);
 export function AuthContextProvider(props: AuthContextProviderProps) {
   const [user, setUser] = useState<User>();
 
-  useEffect(() => {
-    async function getUser() {
-      try {
-        const { data } = await axios.get('/user');
-        setUser(data);
-        console.log(data)
-      } catch(e) {
-        console.log(e)
-      } 
-    }
-    getUser();
-    // const unsubscribe = auth.onAuthStateChanged(user => {
-      
-    //   if (user) {
-    //     const { displayName, photoURL, uid } = user
+  // useEffect(() => {
+  //   async function getUser() {
+  //     try {
+  //       const { data } = await axios.get('/user');
+  //       setUser(data);
+  //       console.log(data);
+  //       console.log(data)
+  //     } catch(e) {
+  //       console.log(e)
+  //     } 
+  //   }
+  //   getUser();
+  // }, [])
 
-    //     if (!displayName || !photoURL) {
-    //       throw new Error('Missing information from Google Account.');
-    //     }
-
-    //     setUser({
-    //       id: uid,
-    //       name: displayName,
-    //       avatar: photoURL
-    //     })
-    //   }
-    // })
-
-    // return () => {
-    //   unsubscribe();
-    // }
-  }, [])
+  async function signInWithEmail(email: string, password: string) {
+    await axios.post(`/login`, { email, password } as LoginModel).then((response) => {
+      const { data } = response;
+      let token = `Bearer ${data.token}`;
+      axios.defaults.headers.common = {'Authorization': token};
+      setUser({
+        id: data.user.id,
+        name: data.user.name,
+      })
+    });
+  }
 
   async function signInWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
+    console.log('provider',provider)
 
     const result = await auth.signInWithPopup(provider);
-
+    console.log('result',result)
     if (result.user) {
       const { displayName, photoURL, uid } = result.user
 
@@ -71,6 +67,8 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
         throw new Error('Missing information from Google Account.');
       }
 
+        axios.defaults.headers.common = {'Authorization': 'google_auth'};
+     
       setUser({
         id: uid,
         name: displayName,
@@ -80,7 +78,7 @@ export function AuthContextProvider(props: AuthContextProviderProps) {
   }
   
   return (
-    <AuthContext.Provider value={{ user, signInWithGoogle }}>
+    <AuthContext.Provider value={{ user, signInWithGoogle, signInWithEmail }}>
       {props.children}
     </AuthContext.Provider>
   );

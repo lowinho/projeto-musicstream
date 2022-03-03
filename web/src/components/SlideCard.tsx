@@ -16,7 +16,6 @@ type SlideCardProps = {
 
 export function SlideCard(props: SlideCardProps) {
   const history = useHistory();
-  const [id, setId] = useState(null);
   const [music, setMusic] = useState([] as any);
 
   useEffect(() => {

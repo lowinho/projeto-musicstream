@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { get } from 'lodash';
 
 import { Button } from '../components/Button';
 import { toast } from 'react-toastify';
@@ -21,9 +20,9 @@ export function Music({ match }: any) {
   const id = null;
   const [name, setName] = useState('');
   const [album, setAlbum] = useState('');
-  const [genre, setGenre] = useState(0);
+  const [genreId, setGenreId] = useState(0);
   const [getGenre, setGetGenre] = useState([]);
-  const [author, setAuthor] = useState(0);
+  const [authorId, setAuthorId] = useState(0);
   const [getAuthor, setGetAuthor] = useState([]);
   const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
@@ -78,13 +77,15 @@ export function Music({ match }: any) {
   }
 
   function formValidation() {
-    if (!photo) {toast.error('Insira uma foto'); return}
-    if (name.length < 3) {toast.error('Digite um nome válido'); return}
-    if (album.length < 3) {toast.error('Digite um albúm válido'); return}
-    if (description.length < 30) {toast.error('A descrição precisa ter no mínimo 30 caracteres'); return}
-    if (link.length < 30) {toast.error('Digite um link do youtube válido'); return}
-    if (genre === 0) {toast.error('Insira um gênero musical'); return}
-    if (author === 0) {toast.error('Insira um autor'); return}
+    let valida = true;
+    if (!photo) {toast.error('Insira uma foto'); valida = false}
+    if (name.length < 3) {toast.error('Digite um nome válido'); valida = false}
+    if (album.length < 3) {toast.error('Digite um albúm válido'); valida = false}
+    if (description.length < 30) {toast.error('A descrição precisa ter no mínimo 30 caracteres'); valida = false}
+    if (link.length < 30) {toast.error('Digite um link do youtube válido'); valida = false}
+    if (genreId === 0) {toast.error('Insira um gênero musical'); valida = false}
+    if (authorId === 0) {toast.error('Insira um autor'); valida = false}
+    return valida
   }
 
   async function onSubmit() {
@@ -93,18 +94,6 @@ export function Music({ match }: any) {
 
     setLike(false); 
     // tirar essa validação
-
-    let params: MusicModel = {
-      id: id,
-      photo: photo,
-      name: name,
-      album: album,
-      genreId: genre,
-      authorId: author,
-      description: description,
-      link: link,
-      like: like
-    }
 
     try {
       const formData = new FormData();
@@ -115,12 +104,32 @@ export function Music({ match }: any) {
       
       if (id !== null ) {
         var idRetorno;
-        await axios.put(`/music/${id}`, {params});
+        await axios.put(`/music/${id}`, {
+          id,
+          photo,
+          name,
+          album,
+          genreId,
+          authorId,
+          description,
+          link, 
+          like
+        } as MusicModel);
         await axios.put(`/cover/${id}`, {formData});
         toast.success("Registro atualizado com sucesso!");
         // history.push('/account');
       } else {
-        await axios.post(`/music`, {params}).then((response) => {
+        await axios.post(`/music`, {
+          id,
+          photo,
+          name,
+          album,
+          genreId,
+          authorId,
+          description,
+          link, 
+          like
+        } as MusicModel).then((response) => {
           console.log('response', response);
           idRetorno = response.data.id;
         });
@@ -194,8 +203,8 @@ export function Music({ match }: any) {
         <div className="firstColumn">
           <div id='label-select'>Gênero Musical</div>
             <select 
-              onChange={(event: any) => setGenre(event.target.value)}
-              value={genre}>
+              onChange={(event: any) => setGenreId(event.target.value)}
+              value={genreId}>
                 {getGenre.map((value: StoreModel, index) => (
                   <option key={value.id} value={value.id}>{ value.name }</option>
                   ))}
@@ -205,8 +214,8 @@ export function Music({ match }: any) {
             <div id='label-select'>Autor</div>
             <select
             placeholder='Selecione...'
-              onChange={(event: any) => setAuthor(event.target.value)}
-              value={author}>
+              onChange={(event: any) => setAuthorId(event.target.value)}
+              value={authorId}>
               {getAuthor.map((value: StoreModel, index) => (
                   <option key={value.id} value={value.id}>{ value.name }</option>
                   ))}

@@ -43,20 +43,10 @@ class UserController {
     }
 
     async store(req: Request, res: Response) {
-            const { 
-                email,
-                password,
-                admin
-             } = req.body.params;
+            const params = req.body;
             const userService = new UserService();
             try {
-                const settings = await userService.store(
-                    { 
-                        email,
-                        password,
-                        admin
-                     }
-                    );
+                const settings = await userService.store(params);
                 return res.json(settings)
             } catch (err) {
                 return res.status(400).json({

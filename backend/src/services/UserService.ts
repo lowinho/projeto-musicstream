@@ -7,6 +7,7 @@ const prisma = new PrismaClient()
 
 interface IUserCreate {
     id?: number
+    name?: string;
     email?: string;
     password?: string;
     admin?: boolean
@@ -37,14 +38,15 @@ class UserService {
         return user;
     }
 
-    async store({ email, password, admin } : IUserCreate) {
+    async store( params : IUserCreate) {
         const schema = Yup.object().shape({
+            name: Yup.string().required().min(5),
             email: Yup.string().email().required(),
             password: Yup.string().required(),
             admin: Yup.boolean().required(),
         });
 
-        if (!(await schema.isValid({ email, password, admin }))) {
+        if (!(await schema.isValid( params ))) {
             throw new CustomError({
               code: 'VALIDATION_FAILS',
               message: 'Validation fails',
@@ -52,11 +54,16 @@ class UserService {
             });
           }
 
+          const name = params.name;
+          const email = params.email;
+          const admin = params.admin;
+
         try {
             const salt = genSaltSync(10);
-            const password_hash = hashSync(password, salt);
+            const password_hash = hashSync(params.password, salt);
             const user = await prisma.user.create({
                 data: {
+                    name,
                     email,
                     password_hash,
                     admin

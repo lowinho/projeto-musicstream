@@ -5,25 +5,48 @@ import logoImg from '../assets/images/logo.png';
 
 import { Button } from '../components/Button';
 import { useAuth } from '../hooks/useAuth';
+import { toast } from 'react-toastify';
 
 import '../styles/login.scss';
 
 export function Login() {
   const history = useHistory();
-  const { user, signInWithGoogle } = useAuth();
+  const { user, signInWithGoogle, signInWithEmail } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  async function handleCreateRoom() {
-    if (!user) {
-      await signInWithGoogle()
-    }
+  async function handleAcessGoogle() {
+    await signInWithGoogle();
+    history.push('/home');
 
-    history.push('/rooms/new');
+    console.log('user', user);
   }
 
-  function navigateToHome() {
-    history.push('/home');
+  function validateEmail() {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+    const validation = email.match(validRegex) ? true :  false;
+    return validation
+  }
+
+  function formValidation() {
+    let valida = true;
+    if (!validateEmail()) {toast.error('Email incorreto'); valida = false};
+    if (password.length < 6) {toast.error('A senha precisa ter pelo menos 6 caracteres'); valida = false};
+
+    return valida
+  }
+
+  async function onSubmit() {
+    // verificar esse setter depois
+    if (!formValidation()) return
+
+    try {
+      await signInWithEmail(email, password);
+      history.push('/home');
+    } catch(e) {
+      toast.error('Erro ao logar, verifique seu email e senha');
+      console.log('error', e)
+    }
   }
 
   return (
@@ -44,9 +67,9 @@ export function Login() {
           onChange={event => setPassword(event.target.value)}
           value={password}
         />
-        <Button onClick={navigateToHome}>Entrar</Button>
+        <Button onClick={onSubmit}>Entrar</Button>
 
-        <button onClick={handleCreateRoom} className="login-google">
+        <button onClick={handleAcessGoogle} className="login-google">
           <img src={googleIconImg} alt="Logo do Google" />
           Entre com google
         </button>

@@ -33,7 +33,6 @@ class LoginService {
         const password = (await user).password_hash;
         const password_compare = compareSync(params.password, password);
         
- 
         if (!password_compare) {
           throw new CustomError({
             code: 'INCORRECT PASSWORD',
@@ -47,6 +46,7 @@ class LoginService {
         const token = {
           user: {
             id: authUser.id,
+            name: authUser.name,
             email: authUser.email
           },
           token: jwt.sign(
@@ -98,6 +98,7 @@ class LoginService {
               status: 401,
             });
           }
+          const name = dbUser.name;
           const email = dbUser.email;
           const admin = dbUser.admin;
           const salt = genSaltSync(10);
@@ -108,6 +109,7 @@ class LoginService {
                 id: parseInt(id)
               },
               data: {
+                  name,
                   email,
                   password_hash,
                   admin
