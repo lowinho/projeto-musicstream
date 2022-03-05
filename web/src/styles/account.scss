@@ -14,7 +14,7 @@
         background-image: url('../assets/images/card-background.jpg');
         background-size: auto;
         width: 550px;
-        height: 500px;
+        height: 700px;
         padding: 10px 40px;
         border-radius: 5px;
         opacity: 0.9;
@@ -27,19 +27,22 @@
 
         #firstRow{
             grid-area: one;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            
         }
 
         #secondRow{
             grid-area: two;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         #thirdRow{
             grid-area: three;
-            display: flex;
-            justify-content: space-between;
         }
 
         #fourthRow{
@@ -48,12 +51,29 @@
 
         #fifthRow{
             grid-area: five;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .btn-plus{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #btn{
+            font-size: 13px;
+            margin-right: 5px;
         }
 
         img{
             width: 150px;
             height: 150px;
             border-radius: 50%;
+        }
+
+        h3{
+            color: $color-primary-dark;
+            margin: 10px 0 15px 0;
         }
 
         .photo{
@@ -78,14 +98,22 @@
             }
         }
 
+        label {
+            color: $color-primary-dark;
+        }
+
         input[type="file"]{
             display: none;
         }
 
         h2 {
             color: $color-primary-dark;
-            margin-bottom: 45px;
-            
+            margin-bottom: 45px; 
+        }
+
+        h4 {
+            color: $color-primary-dark;
+            margin-bottom: 45px; 
         }
 
         h5 {

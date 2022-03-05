@@ -57,6 +57,19 @@ class AvatarController {
     //         })
     //     }
     // }
+
+    async getByUser(req: Request, res: Response) {
+      const { id } = req.params;
+      const musicService = new AvatarService();
+      try {
+          const music = await musicService.getByUser(parseInt(id));
+          return res.json(music)
+      } catch (err) {
+          return res.status(400).json({
+              message: err.message,
+          })
+      }
+  }
 }
 
 export { AvatarController };

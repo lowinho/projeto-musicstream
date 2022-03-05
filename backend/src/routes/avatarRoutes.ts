@@ -10,7 +10,7 @@ const avatarRoutes = Router();
 const avatarController = new AvatarController();
 
 avatarRoutes.get("/:id",checkJwt, avatarController.index);
-// avatarRoutes.get("/",checkJwt, avatarController.show);
+avatarRoutes.get("/user/:id", checkJwt, avatarController.getByUser);
 avatarRoutes.post("/:id", upload, checkJwt, avatarController.store);
 // avatarRoutes.put("/:id", checkJwt, avatarController.update);
 

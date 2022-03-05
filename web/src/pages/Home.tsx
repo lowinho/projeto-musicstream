@@ -15,20 +15,19 @@ import { useAuth } from '../hooks/useAuth';
 
 export function Home() {
   const history = useHistory();
-  // const [photo, setPhoto] = useState([]);
-  // const [music, setMusic] = useState([] as any);
   const [genre, setGenre] = useState([] as any);
+  const [avatar, setAvatar] = useState<string | undefined>('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
 
   useEffect(() => {
     async function getMusic() {
       try {
         const data = await axios.get('/genre');
         setGenre(data.data);
+        setAvatar(user?.avatar);
       } catch(e) {
-        console.log(e)
       }
     }
     getMusic();
@@ -43,13 +42,10 @@ export function Home() {
     }
   }
 
-  function logout() {
-    alert('LOGOUT');
+  async function logoutSystem() {
+    await logout();
+    history.push('/');
   }
-
-  // function navigateToMusic() {
-  //   history.push('/play-music');
-  // }
 
   function navigateToAccount() {
     history.push('/account');
@@ -70,7 +66,7 @@ export function Home() {
           <div id="title">{user?.name}</div>
           <div className="photo" onClick={handleShowDropdown}>
             <div id="profile-photo">
-              {user?.avatar ? <img src={user?.avatar} alt="Avatar" id="profile-avatar"/>: <div id="profile-no-photo">CL</div>}
+              {avatar ? <img src={avatar} alt="#" id="profile-avatar"/>: <div id="profile-no-photo">CL</div>}
               <FaAngleDown color="#000000" id="icon-profile" />
               </div>
             {showDropdown ? 
@@ -79,7 +75,7 @@ export function Home() {
                 <FaUser color="#000000" id="icon-account-sign" size="20px"/>
                 <Link to="#" id="links">Account</Link>
               </div>
-              <div id="account-sign" onClick={logout}>
+              <div id="account-sign" onClick={logoutSystem}>
                 <FaSignOutAlt color="#000000" id="icon-account-sign" />
                 <Link to="#" id="links">Exit</Link>
               </div>
@@ -104,16 +100,7 @@ export function Home() {
                 urlImage={urlImg}/>
             </div>
           ))}
-         
-          {/* <div id="title-lists">Pop</div>
-          <SlideCard 
-            name="Red"
-            urlImage={urlImg}/>
-
-          <div id="title-lists">Pop</div>
-          <SlideCard 
-            name="Red"
-            urlImage={urlImg}/> */}
+        
         </div>
       </>}
     </>

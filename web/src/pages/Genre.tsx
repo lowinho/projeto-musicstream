@@ -14,7 +14,7 @@ import '../styles/store.scss';
 export function Genre({ match }: any) {
   const history = useHistory();
   // const { user, signInWithGoogle } = useAuth();
-  const id = get(match, 'params.id', '');
+  const id = get(match, 'params.id', null);
   const [name, setName] = useState('');
 
   // async function handleCreateRoom() {

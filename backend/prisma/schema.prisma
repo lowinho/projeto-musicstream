@@ -51,7 +51,7 @@ model Music {
 
 model Avatar {
   id           Int      @id @default(autoincrement())
-  userId       Int
+  userId       Int      @unique
   originalName String
   fileName     String
   url          String

@@ -29,7 +29,7 @@ class AuthorController {
     }
 
     async store(req: Request, res: Response) {
-        const { name } = req.body.params;
+        const { name } = req.body;
         const authorService = new AuthorService();
         try {
 

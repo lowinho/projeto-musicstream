@@ -88,7 +88,6 @@ class UserService {
               },
               data: {
                 email: data.email,
-                password_hash: password_hash,
                 admin: data.admin
               },
           })

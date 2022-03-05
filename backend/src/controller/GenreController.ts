@@ -29,7 +29,7 @@ class GenreController {
     }
 
     async store(req: Request, res: Response) {
-        const { name } = req.body.params;
+        const { name } = req.body;
         const genreService = new GenreService();
         try {
             const genre = await genreService.store({ name });

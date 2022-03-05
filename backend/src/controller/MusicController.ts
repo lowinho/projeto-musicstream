@@ -37,7 +37,7 @@ class MusicController {
                 description,
                 link,
                 like
-             } = req.body.params;
+             } = req.body;
             const musicService = new MusicService();
             genreId = parseInt(genreId);
             authorId = parseInt(authorId);
