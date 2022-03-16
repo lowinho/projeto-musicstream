@@ -1,6 +1,6 @@
 import { FaArrowLeft } from "react-icons/fa";
 
-import '../styles/iconBack.scss';
+import '../../styles/iconBack.scss';
 
 type IconBackProps = {
   class?: string;

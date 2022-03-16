@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import ReactPlayer from 'react-player';
-import { useHistory } from 'react-router-dom'
+
 import { AiTwotoneLike, AiTwotoneDislike } from 'react-icons/ai';
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
-import { Loading } from '../components/Loading';
 
-// import { useAuth } from '../hooks/useAuth';
-import { IconBack } from '../components/iconBack';
-
-import '../styles/playMusic.scss';
 import axios from '../services/axios';
-
+import { Loading, IconBack } from '../components/Atoms/index';
+import '../styles/playMusic.scss';
 export function PlayMusic({ match }: any) {
   const id = get(match, 'params.id', '');
   const history = useHistory();
@@ -20,18 +17,8 @@ export function PlayMusic({ match }: any) {
   const [ author, setAuthor ] = useState('');
   const [ like, setLike ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
-  // const { user, signInWithGoogle } = useAuth()
-
-  // async function handleCreateRoom() {
-  //   if (!user) {
-  //     await signInWithGoogle()
-  //   }
-
-  //   history.push('/rooms/new');
-  // }
 
   useEffect(() => {
-
     async function getMusic() {
       try {
         console.log('id', id);

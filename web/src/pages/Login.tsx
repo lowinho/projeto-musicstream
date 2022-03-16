@@ -1,12 +1,13 @@
 import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom'
-import googleIconImg from '../assets/images/google-icon.svg';
-import logoImg from '../assets/images/logo.png';
+import { Link, useHistory } from 'react-router-dom';
 
-import { Button } from '../components/Button';
-import { useAuth } from '../hooks/useAuth';
 import { toast } from 'react-toastify';
 
+import { Button } from '../components/Atoms/index';
+import { useAuth } from '../hooks/useAuth';
+import { validateEmail } from '../services/validadeEmail';
+import googleIconImg from '../assets/images/google-icon.svg';
+import logoImg from '../assets/images/logo.png';
 import '../styles/login.scss';
 
 export function Login() {
@@ -22,15 +23,9 @@ export function Login() {
     console.log('user', user);
   }
 
-  function validateEmail() {
-    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const validation = email.match(validRegex) ? true :  false;
-    return validation
-  }
-
   function formValidation() {
     let valida = true;
-    if (!validateEmail()) {toast.error('Email incorreto'); valida = false};
+    if (!validateEmail(email)) {toast.error('Email incorreto'); valida = false};
     if (password.length < 6) {toast.error('A senha precisa ter pelo menos 6 caracteres'); valida = false};
 
     return valida

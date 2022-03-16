@@ -1,18 +1,16 @@
 import { Link, useHistory } from 'react-router-dom'
+import { useEffect, useState } from 'react';
 
-// import { useAuth } from '../hooks/useAuth';
+import { FaAngleDown, FaUser, FaSignOutAlt } from 'react-icons/fa';
+import PropTypes from 'prop-types';
+
+import axios from '../services/axios';
+import { SlideCard } from '../components/Molecules/index';
+import { Loading } from '../components/Atoms/index';
+import { useAuth } from '../hooks/useAuth';
 import logoImg from '../assets/images/logo.png';
 import urlImg from '../assets/images/redtheband.jpg';
-import { FaAngleDown, FaUser, FaSignOutAlt } from 'react-icons/fa';
-
 import '../styles/home.scss';
-import { useEffect, useState } from 'react';
-import { SlideCard } from '../components/SlideCard';
-import axios from '../services/axios';
-import PropTypes from 'prop-types';
-import { Loading } from '../components/Loading'
-import { useAuth } from '../hooks/useAuth';
-
 export function Home() {
   const history = useHistory();
   const [genre, setGenre] = useState([] as any);
@@ -32,7 +30,7 @@ export function Home() {
     }
     getMusic();
     setIsLoading(false);
-  }, [])
+  }, [user])
 
   function handleShowDropdown() {
     if (showDropdown) {
@@ -40,6 +38,10 @@ export function Home() {
     } else {
       setShowDropdown(true);
     }
+  }
+
+  function navigateToMyList() {
+    history.push(`/mylist/${user?.id}`);
   }
 
   async function logoutSystem() {
@@ -59,7 +61,7 @@ export function Home() {
         <div className="nav-left">
           <img id="logo" src={logoImg} alt="musicstream" />
           <Link to="/home">Home</Link>
-          <Link to="/mylist">My List</Link>
+          <Link to="#" onClick={navigateToMyList}>My List</Link>
         </div>
 
         <div className="nav-right">

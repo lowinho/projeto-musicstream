@@ -2,29 +2,17 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
-import axios from '../services/axios';
-import { get } from 'lodash';
 import PropTypes from 'prop-types';
 
-import { Button } from '../components/Button';
-// import { useAuth } from '../hooks/useAuth';
-import { IconBack } from '../components/iconBack';
-
+import axios from '../services/axios';
+import { get } from 'lodash';
+import { IconBack, Button } from '../components/Atoms/index';
 import '../styles/store.scss';
 
 export function Author({ match }: any) {
   const history = useHistory();
-  // const { user, signInWithGoogle } = useAuth();
   const id = get(match, 'params.id', '');
   const [name, setName] = useState('');
-
-  // async function handleCreateRoom() {
-  //   if (!user) {
-  //     await signInWithGoogle()
-  //   }
-
-  //   history.push('/rooms/new');
-  // }
 
   function formValidation() {
     if (name.length < 3) {toast.error('Digite um nome válido'); return}

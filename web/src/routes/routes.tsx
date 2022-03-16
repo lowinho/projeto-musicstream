@@ -18,7 +18,7 @@ export function Routes() {
         <Route path="/user"  component={User} />
         <Route path="/home" component={Home} />
         <Route path="/account" component={Account} />
-        <Route path="/mylist" component={MyList} />
+        <Route path="/mylist/:id" component={MyList} />
         <Route path="/play-music/:id" component={PlayMusic} />
         <Route path="/music" component={Music} />
         <Route path="/genre" component={Genre} />

@@ -1,23 +1,12 @@
-import { createContext, ReactNode, useState, useEffect } from "react";
-import { LoginModel } from "../models/loginModel";
+import { createContext, ReactNode, useState } from "react";
+import { useHistory } from 'react-router-dom';
+
 import axios from "../services/axios";
 import { auth, firebase } from "../services/firebase";
-import { useHistory } from 'react-router-dom'
-
-type User = {
-  id?: number;
-  uid?: string;
-  name?: string;
-  email?: string | null;
-  admin?: boolean;
-  created?: string;
-  updated?: string;
-  avatar?: string ;
-  login: string;
-}
+import { LoginModel, UserModel } from "../models/index";
 
 type AuthContextType = {
-  user: User | undefined;
+  user: UserModel | undefined;
   signInWithGoogle: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
@@ -31,7 +20,7 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthContextProvider(props: AuthContextProviderProps) {
   const history = useHistory();
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserModel>();
 
   // useEffect(() => {
   //   async function getUser() {

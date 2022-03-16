@@ -24,7 +24,8 @@
   .slide-card:hover .card-inside {
     transform: translateX(-25%);
 
- }
+  }
+
 
   .card-inside{
     transition: transform 300ms ease 100ms;
@@ -34,7 +35,7 @@
 
     &:hover {
       transform: scale(1.5) !important;
-      z-index: 1;
+      z-index: 0;
       cursor: pointer;
     }
     
@@ -44,6 +45,14 @@
       display: grid;
       justify-content: center;
       grid-area: one;
+    }
+
+    .icon{
+      position: absolute;
+      top: 230px;
+      left: 100px;
+      z-index: 1;
+      cursor: pointer;
     }
   
     img{

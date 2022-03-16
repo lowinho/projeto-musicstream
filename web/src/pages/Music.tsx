@@ -1,22 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { Button } from '../components/Button';
 import { toast } from 'react-toastify';
-import axios from '../services/axios';
-// import { useAuth } from '../hooks/useAuth';
-import { IconBack } from '../components/iconBack';
 import { FaPlus } from 'react-icons/fa';
-import { MusicModel } from '../models/musicModel';
-import { StoreModel } from '../models/storeModel';
-// FaEdit 
+
+import { Button, IconBack } from '../components/Atoms/index';
+import axios from '../services/axios';
+import { MusicModel, StoreModel } from '../models/index';
 import '../styles/music.scss';
 
 
 export function Music({ match }: any) {
   const history = useHistory();
-  // const { user, signInWithGoogle } = useAuth();
-  // const id = get(match, 'params.id', '');
   const id = null;
   const [name, setName] = useState('');
   const [album, setAlbum] = useState('');
@@ -30,13 +25,6 @@ export function Music({ match }: any) {
   const [photo, setPhoto] = useState('');
   const [file, setFile] = useState({} as Blob);
 
-  // async function handleCreateRoom() {
-  //   if (!user) {
-  //     await signInWithGoogle()
-  //   }
-
-  //   history.push('/rooms/new');
-  // }
 
   useEffect(() => {
     async function getGenre() {

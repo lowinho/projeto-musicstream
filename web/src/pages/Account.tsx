@@ -1,15 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-
-import { Button } from '../components/Button';
-import { useAuth } from '../hooks/useAuth';
-import { IconBack } from '../components/iconBack';
-import { FaPlus } from 'react-icons/fa';
-// FaEdit
-import '../styles/account.scss';
 import { toast } from 'react-toastify';
+import { FaPlus } from 'react-icons/fa';
+
+import { IconBack, Button } from '../components/Atoms/index';
+import { useAuth } from '../hooks/useAuth';
+import { validateEmail } from '../services/validadeEmail';
 import axios from '../services/axios';
 import { UserModel } from '../models/userModel';
+import '../styles/account.scss';
 
 export function Account() {
   const history = useHistory();
@@ -38,17 +37,11 @@ export function Account() {
     setAvatar(photoURL);
   }
 
-  function validateEmail() {
-    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-    const validation = email.match(validRegex) ? true :  false;
-    return validation
-  }
-
   function formValidation() {
     let valida = true;
     if (!avatar) {toast.error('Insira uma foto'); valida = false}
     if (name.length < 3) {toast.error('Digite um nome válido'); valida = false}
-    if (!validateEmail()) {toast.error('Email incorreto'); valida = false};
+    if (!validateEmail(email)) {toast.error('Email incorreto'); valida = false};
     return valida
   }
 

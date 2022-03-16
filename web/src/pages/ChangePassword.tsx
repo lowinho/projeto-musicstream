@@ -1,27 +1,16 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom'
 
-import { Button } from '../components/Button';
-// import { useAuth } from '../hooks/useAuth';
-import { IconBack } from '../components/iconBack';
 import { FaEye } from 'react-icons/fa';
 
+import { IconBack, Button } from '../components/Atoms/index';
 import '../styles/changePassword.scss';
 
 export function ChangePassword() {
   const history = useHistory();
-  // const { user, signInWithGoogle } = useAuth();
   const [oldPassword, setOldPassword] = useState('');
   const [newPassword, setNewPassord] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
-
-  // async function handleCreateRoom() {
-  //   if (!user) {
-  //     await signInWithGoogle()
-  //   }
-  //   history.push('/rooms/new');
-  // }
 
   function handleChangeTypeInput(option: string) {
     let type = (document.getElementById(option) as HTMLInputElement).type;
